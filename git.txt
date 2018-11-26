@@ -1,7 +1,18 @@
+https://github.com/
+wu-ben
+whf82828@gmail.com
+Whf2github
 1.
+$ git config --list //查看已设配置
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
+//查看用户名和邮箱地址
+$ git config user.name 
+$ git config user.email
+
+2.创建SSH Key,一台电脑对应一个Key
+$ ssh-keygent -t rsa -C "wuhf@ngarihealth.com"
 
 工作区Working Directory
 版本库Repository [stage(或叫index)的暂存区 + HEAD指针->master分支]
@@ -23,3 +34,47 @@ $ cat readme.txt  //显示文件内容
 $ git reflog  //显示命令记录
 $ git checkout -- readme.txt //工作区修改还原。本地工作区修改: 1.没放到暂存区，版本库覆盖本地。2.放到暂存区，暂存区覆盖本地
 $ git reset HEAD readme.txt  //暂存区的修改撤销掉（unstage），重新放回工作区。add后撤回
+$ git rm test.txt  //删除本地文件
+
+3.创建SSH Key,在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa(私钥)和id_rsa.pub(公钥)这两个文件
+  如果没有:
+$ ssh-keygen -t rsa -C "wuhf@ngrihealth.com"
+    会输出下面语句
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/Users/susonglin/.ssh/id_rsa): //这里直接按enter（回车键）
+    
+    Enter passphrase (empty for no passphrase):
+    //提示你输入密码
+    Enter same passphrase again:
+    //提示你重新输入以便确认输入是否正确
+
+    随后会提示一大串我看不懂的，反正大概意思就是你创建好了 id_rsa 和 id_rsa.pub 文件。
+
+    接下来就要找** id_rsa.pub**文件
+    $ open ~/.ssh
+    即可，打开文件夹(弹出来)，就可以找到id_rsa.pub文件了。
+    然后用Sublime编译器打开(为在 Github 上添加你的 SSH KEY 做铺垫)
+4.验证你的Github连接
+$ ssh -T git@github.com
+    The authenticity of host 'github.com (192.30.255.113)' can't be established.
+    RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+    Are you sure you want to continue connecting (yes/no)? yes
+
+    输入yes后，会显示出以下代码(表示成功了)
+
+    Hi xxxx! You've successfully authenticated, but GitHub does not provide shell access.
+
+5.本地版本库传到远程github
+$ git remote add origin https://github.com/wu-ben/learngit.git //关联远程库
+    ERROR: Repository not found.
+    fatal: Could not read from remote repository.
+解决：
+$ git remote set-url origin git@github.com:wu-ben/learngit.git
+
+$ git push -u origin master  //把本地库的内容推送到远程
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+
+6.先建远程库，再下载到本地
+$ git clone git@github.com:wu-ben/gitskills.git
+$ cd gitskills  //进入文件夹
+$ ls  //显示文件夹内容
