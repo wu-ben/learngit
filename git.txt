@@ -1,80 +1,76 @@
-https://github.com/
-wu-ben
-whf82828@gmail.com
-Whf2github
 1.
-$ git config --list //²é¿´ÒÑÉèÅäÖÃ
+$ git config --list //æŸ¥çœ‹å·²è®¾é…ç½®
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
-×¢Òâgit configÃüÁîµÄ--global²ÎÊı£¬ÓÃÁËÕâ¸ö²ÎÊı£¬±íÊ¾ÄãÕâÌ¨»úÆ÷ÉÏËùÓĞµÄGit²Ö¿â¶¼»áÊ¹ÓÃÕâ¸öÅäÖÃ£¬µ±È»Ò²¿ÉÒÔ¶ÔÄ³¸ö²Ö¿âÖ¸¶¨²»Í¬µÄÓÃ»§ÃûºÍEmailµØÖ·¡£
-//²é¿´ÓÃ»§ÃûºÍÓÊÏäµØÖ·
+æ³¨æ„git configå‘½ä»¤çš„--globalå‚æ•°ï¼Œç”¨äº†è¿™ä¸ªå‚æ•°ï¼Œè¡¨ç¤ºä½ è¿™å°æœºå™¨ä¸Šæ‰€æœ‰çš„Gitä»“åº“éƒ½ä¼šä½¿ç”¨è¿™ä¸ªé…ç½®ï¼Œå½“ç„¶ä¹Ÿå¯ä»¥å¯¹æŸä¸ªä»“åº“æŒ‡å®šä¸åŒçš„ç”¨æˆ·åå’ŒEmailåœ°å€ã€‚
+//æŸ¥çœ‹ç”¨æˆ·åå’Œé‚®ç®±åœ°å€
 $ git config user.name 
 $ git config user.email
 
-2.´´½¨SSH Key,Ò»Ì¨µçÄÔ¶ÔÓ¦Ò»¸öKey
+2.åˆ›å»ºSSH Key,ä¸€å°ç”µè„‘å¯¹åº”ä¸€ä¸ªKey
 $ ssh-keygent -t rsa -C "wuhf@ngarihealth.com"
 
-¹¤×÷ÇøWorking Directory
-°æ±¾¿âRepository [stage(»ò½Ğindex)µÄÔİ´æÇø + HEADÖ¸Õë->master·ÖÖ§]
+å·¥ä½œåŒºWorking Directory
+ç‰ˆæœ¬åº“Repository [stage(æˆ–å«index)çš„æš‚å­˜åŒº + HEADæŒ‡é’ˆ->masteråˆ†æ”¯]
 
-2.´´½¨Ò»¸ö°æ±¾¿â Repository
-$ mkdir learngit //´´½¨ÎÄ¼ş¼Ğ
-$ cd learngit  //½øÈëÎÄ¼ş¼Ğ
-$ pwd  //ÏÔÊ¾ÎÄ¼ş¼ĞÂ·¾¶
-$ git init //°ÑÄ¿Â¼±ä³ÉGit¿ÉÒÔ¹ÜÀíµÄ²Ö¿â
-$ git add readme.txt  //°ÑÎÄ¼şÌí¼Óµ½²Ö¿â¡£¹¤×÷ÇøWorking Directory Ìá½»µ½ Ôİ´æÇøstage
-$ git commit -m "wrote a readme file"  //°ÑÎÄ¼şÌá½»µ½²Ö¿â¡£Ôİ´æÇøstage Ìá½»µ½ master·ÖÖ§
-$ git status  //¿´²Ö¿âµ±Ç°µÄ×´Ì¬
-$ git diff readme.txt  //¶Ô±È²»Í¬ 
-$ git log  //²é¿´ÀúÊ·¼ÇÂ¼
-$ git log --pretty=oneline  //²é¿´ÀúÊ·¼ÇÂ¼-µ¥ĞĞÏÔÊ¾
-$ git reset --hard HEAD^  //»ØÍËµ½ÉÏÒ»¸ö°æ±¾¡££¨HEAD^^ ÉÏÉÏ°æ£¬HEAD~100 Ç°100°æ£©
-$ git reset --hard 1094a  //»ØÍËµ½Ö¸¶¨°æ
-$ cat readme.txt  //ÏÔÊ¾ÎÄ¼şÄÚÈİ
-$ git reflog  //ÏÔÊ¾ÃüÁî¼ÇÂ¼
-$ git checkout -- readme.txt //¹¤×÷ÇøĞŞ¸Ä»¹Ô­¡£±¾µØ¹¤×÷ÇøĞŞ¸Ä: 1.Ã»·Åµ½Ôİ´æÇø£¬°æ±¾¿â¸²¸Ç±¾µØ¡£2.·Åµ½Ôİ´æÇø£¬Ôİ´æÇø¸²¸Ç±¾µØ
-$ git reset HEAD readme.txt  //Ôİ´æÇøµÄĞŞ¸Ä³·Ïúµô£¨unstage£©£¬ÖØĞÂ·Å»Ø¹¤×÷Çø¡£addºó³·»Ø
-$ git rm test.txt  //É¾³ı±¾µØÎÄ¼ş
+2.åˆ›å»ºä¸€ä¸ªç‰ˆæœ¬åº“ Repository
+$ mkdir learngit //åˆ›å»ºæ–‡ä»¶å¤¹
+$ cd learngit  //è¿›å…¥æ–‡ä»¶å¤¹
+$ pwd  //æ˜¾ç¤ºæ–‡ä»¶å¤¹è·¯å¾„
+$ git init //æŠŠç›®å½•å˜æˆGitå¯ä»¥ç®¡ç†çš„ä»“åº“
+$ git add readme.txt  //æŠŠæ–‡ä»¶æ·»åŠ åˆ°ä»“åº“ã€‚å·¥ä½œåŒºWorking Directory æäº¤åˆ° æš‚å­˜åŒºstage
+$ git commit -m "wrote a readme file"  //æŠŠæ–‡ä»¶æäº¤åˆ°ä»“åº“ã€‚æš‚å­˜åŒºstage æäº¤åˆ° masteråˆ†æ”¯
+$ git status  //çœ‹ä»“åº“å½“å‰çš„çŠ¶æ€
+$ git diff readme.txt  //å¯¹æ¯”ä¸åŒ 
+$ git log  //æŸ¥çœ‹å†å²è®°å½•
+$ git log --pretty=oneline  //æŸ¥çœ‹å†å²è®°å½•-å•è¡Œæ˜¾ç¤º
+$ git reset --hard HEAD^  //å›é€€åˆ°ä¸Šä¸€ä¸ªç‰ˆæœ¬ã€‚ï¼ˆHEAD^^ ä¸Šä¸Šç‰ˆï¼ŒHEAD~100 å‰100ç‰ˆï¼‰
+$ git reset --hard 1094a  //å›é€€åˆ°æŒ‡å®šç‰ˆ
+$ cat readme.txt  //æ˜¾ç¤ºæ–‡ä»¶å†…å®¹
+$ git reflog  //æ˜¾ç¤ºå‘½ä»¤è®°å½•
+$ git checkout -- readme.txt //å·¥ä½œåŒºä¿®æ”¹è¿˜åŸã€‚æœ¬åœ°å·¥ä½œåŒºä¿®æ”¹: 1.æ²¡æ”¾åˆ°æš‚å­˜åŒºï¼Œç‰ˆæœ¬åº“è¦†ç›–æœ¬åœ°ã€‚2.æ”¾åˆ°æš‚å­˜åŒºï¼Œæš‚å­˜åŒºè¦†ç›–æœ¬åœ°
+$ git reset HEAD readme.txt  //æš‚å­˜åŒºçš„ä¿®æ”¹æ’¤é”€æ‰ï¼ˆunstageï¼‰ï¼Œé‡æ–°æ”¾å›å·¥ä½œåŒºã€‚addåæ’¤å›
+$ git rm test.txt  //åˆ é™¤æœ¬åœ°æ–‡ä»¶
 
-3.´´½¨SSH Key,ÔÚÓÃ»§Ö÷Ä¿Â¼ÏÂ£¬¿´¿´ÓĞÃ»ÓĞ.sshÄ¿Â¼£¬Èç¹ûÓĞ£¬ÔÙ¿´¿´Õâ¸öÄ¿Â¼ÏÂÓĞÃ»ÓĞid_rsa(Ë½Ô¿)ºÍid_rsa.pub(¹«Ô¿)ÕâÁ½¸öÎÄ¼ş
-  Èç¹ûÃ»ÓĞ:
+3.åˆ›å»ºSSH Key,åœ¨ç”¨æˆ·ä¸»ç›®å½•ä¸‹ï¼Œçœ‹çœ‹æœ‰æ²¡æœ‰.sshç›®å½•ï¼Œå¦‚æœæœ‰ï¼Œå†çœ‹çœ‹è¿™ä¸ªç›®å½•ä¸‹æœ‰æ²¡æœ‰id_rsa(ç§é’¥)å’Œid_rsa.pub(å…¬é’¥)è¿™ä¸¤ä¸ªæ–‡ä»¶
+  å¦‚æœæ²¡æœ‰:
 $ ssh-keygen -t rsa -C "wuhf@ngrihealth.com"
-    »áÊä³öÏÂÃæÓï¾ä
+    ä¼šè¾“å‡ºä¸‹é¢è¯­å¥
     Generating public/private rsa key pair.
-    Enter file in which to save the key (/Users/susonglin/.ssh/id_rsa): //ÕâÀïÖ±½Ó°´enter£¨»Ø³µ¼ü£©
+    Enter file in which to save the key (/Users/susonglin/.ssh/id_rsa): //è¿™é‡Œç›´æ¥æŒ‰enterï¼ˆå›è½¦é”®ï¼‰
     
     Enter passphrase (empty for no passphrase):
-    //ÌáÊ¾ÄãÊäÈëÃÜÂë
+    //æç¤ºä½ è¾“å…¥å¯†ç 
     Enter same passphrase again:
-    //ÌáÊ¾ÄãÖØĞÂÊäÈëÒÔ±ãÈ·ÈÏÊäÈëÊÇ·ñÕıÈ·
+    //æç¤ºä½ é‡æ–°è¾“å…¥ä»¥ä¾¿ç¡®è®¤è¾“å…¥æ˜¯å¦æ­£ç¡®
 
-    Ëæºó»áÌáÊ¾Ò»´ó´®ÎÒ¿´²»¶®µÄ£¬·´Õı´ó¸ÅÒâË¼¾ÍÊÇÄã´´½¨ºÃÁË id_rsa ºÍ id_rsa.pub ÎÄ¼ş¡£
+    éšåä¼šæç¤ºä¸€å¤§ä¸²æˆ‘çœ‹ä¸æ‡‚çš„ï¼Œåæ­£å¤§æ¦‚æ„æ€å°±æ˜¯ä½ åˆ›å»ºå¥½äº† id_rsa å’Œ id_rsa.pub æ–‡ä»¶ã€‚
 
-    ½ÓÏÂÀ´¾ÍÒªÕÒ** id_rsa.pub**ÎÄ¼ş
+    æ¥ä¸‹æ¥å°±è¦æ‰¾** id_rsa.pub**æ–‡ä»¶
     $ open ~/.ssh
-    ¼´¿É£¬´ò¿ªÎÄ¼ş¼Ğ(µ¯³öÀ´)£¬¾Í¿ÉÒÔÕÒµ½id_rsa.pubÎÄ¼şÁË¡£
-    È»ºóÓÃSublime±àÒëÆ÷´ò¿ª(ÎªÔÚ Github ÉÏÌí¼ÓÄãµÄ SSH KEY ×öÆÌµæ)
-4.ÑéÖ¤ÄãµÄGithubÁ¬½Ó
+    å³å¯ï¼Œæ‰“å¼€æ–‡ä»¶å¤¹(å¼¹å‡ºæ¥)ï¼Œå°±å¯ä»¥æ‰¾åˆ°id_rsa.pubæ–‡ä»¶äº†ã€‚
+    ç„¶åç”¨Sublimeç¼–è¯‘å™¨æ‰“å¼€(ä¸ºåœ¨ Github ä¸Šæ·»åŠ ä½ çš„ SSH KEY åšé“ºå«)
+4.éªŒè¯ä½ çš„Githubè¿æ¥
 $ ssh -T git@github.com
     The authenticity of host 'github.com (192.30.255.113)' can't be established.
     RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
     Are you sure you want to continue connecting (yes/no)? yes
 
-    ÊäÈëyesºó£¬»áÏÔÊ¾³öÒÔÏÂ´úÂë(±íÊ¾³É¹¦ÁË)
+    è¾“å…¥yesåï¼Œä¼šæ˜¾ç¤ºå‡ºä»¥ä¸‹ä»£ç (è¡¨ç¤ºæˆåŠŸäº†)
 
     Hi xxxx! You've successfully authenticated, but GitHub does not provide shell access.
 
-5.±¾µØ°æ±¾¿â´«µ½Ô¶³Ìgithub
-$ git remote add origin https://github.com/wu-ben/learngit.git //¹ØÁªÔ¶³Ì¿â
+5.æœ¬åœ°ç‰ˆæœ¬åº“ä¼ åˆ°è¿œç¨‹github
+$ git remote add origin https://github.com/wu-ben/learngit.git //å…³è”è¿œç¨‹åº“
     ERROR: Repository not found.
     fatal: Could not read from remote repository.
-½â¾ö£º
+è§£å†³ï¼š
 $ git remote set-url origin git@github.com:wu-ben/learngit.git
 
-$ git push -u origin master  //°Ñ±¾µØ¿âµÄÄÚÈİÍÆËÍµ½Ô¶³Ì
-ÓÉÓÚÔ¶³Ì¿âÊÇ¿ÕµÄ£¬ÎÒÃÇµÚÒ»´ÎÍÆËÍmaster·ÖÖ§Ê±£¬¼ÓÉÏÁË-u²ÎÊı£¬Git²»µ«»á°Ñ±¾µØµÄmaster·ÖÖ§ÄÚÈİÍÆËÍµÄÔ¶³ÌĞÂµÄmaster·ÖÖ§£¬»¹»á°Ñ±¾µØµÄmaster·ÖÖ§ºÍÔ¶³ÌµÄmaster·ÖÖ§¹ØÁªÆğÀ´£¬ÔÚÒÔºóµÄÍÆËÍ»òÕßÀ­È¡Ê±¾Í¿ÉÒÔ¼ò»¯ÃüÁî
+$ git push -u origin master  //æŠŠæœ¬åœ°åº“çš„å†…å®¹æ¨é€åˆ°è¿œç¨‹
+ç”±äºè¿œç¨‹åº“æ˜¯ç©ºçš„ï¼Œæˆ‘ä»¬ç¬¬ä¸€æ¬¡æ¨é€masteråˆ†æ”¯æ—¶ï¼ŒåŠ ä¸Šäº†-uå‚æ•°ï¼ŒGitä¸ä½†ä¼šæŠŠæœ¬åœ°çš„masteråˆ†æ”¯å†…å®¹æ¨é€çš„è¿œç¨‹æ–°çš„masteråˆ†æ”¯ï¼Œè¿˜ä¼šæŠŠæœ¬åœ°çš„masteråˆ†æ”¯å’Œè¿œç¨‹çš„masteråˆ†æ”¯å…³è”èµ·æ¥ï¼Œåœ¨ä»¥åçš„æ¨é€æˆ–è€…æ‹‰å–æ—¶å°±å¯ä»¥ç®€åŒ–å‘½ä»¤
 
-6.ÏÈ½¨Ô¶³Ì¿â£¬ÔÙÏÂÔØµ½±¾µØ
+6.å…ˆå»ºè¿œç¨‹åº“ï¼Œå†ä¸‹è½½åˆ°æœ¬åœ°
 $ git clone git@github.com:wu-ben/gitskills.git
-$ cd gitskills  //½øÈëÎÄ¼ş¼Ğ
-$ ls  //ÏÔÊ¾ÎÄ¼ş¼ĞÄÚÈİ
+$ cd gitskills  //è¿›å…¥æ–‡ä»¶å¤¹
+$ ls  //æ˜¾ç¤ºæ–‡ä»¶å¤¹å†…å®¹
