@@ -1,15 +1,42 @@
+当前项目下配置用户名邮箱
+$git config user.name "your name"
+$git config user.email "your email"
+$git config --listc
+
+$git status
+Your branch and 'origin/master' have diverged,
+您的分支机构和“来源/主管”已经分杈，
+and have 2 and 1 different commits each, respectively.
+并且分别具有2和1个不同的提交。
+  (use "git pull" to merge the remote branch into yours)
+  （使用“ git pull”将远程分支合并到您的分支中）
+
+Changes not staged for commit:
+未暂存的更改未提交：
+  (use "git add <file>..." to update what will be committed)
+  （使用“ git add <文件> ...”更新将提交的内容）
+  (use "git restore <file>..." to discard changes in working directory)
+  （使用“ git restore <文件> ...”放弃工作目录中的更改）
+        modified:   git.txt
+        修改：git.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+没有添加任何更改来提交（使用“ git add”和/或“ git commit -a”）
+------------------------------------------------------------------------------
+
+
 1.
 $ git config --list //查看已设配置
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
 //查看用户名和邮箱地址
-$ git config user.name 
+$ git config user.name
 $ git config user.email
 
 2.创建SSH Key,一台电脑对应一个Key
-$ ssh-keygent -t rsa -C "wuhf@ngarihealth.com"
-
+$ ssh-keygen -t rsa -C "wuhf@ngarihealth.com"
+git
 工作区Working Directory
 版本库Repository [stage(或叫index)的暂存区 + HEAD指针->master分支]
 
@@ -21,9 +48,10 @@ $ git init //把目录变成Git可以管理的仓库
 $ git add readme.txt  //把文件添加到仓库。工作区Working Directory 提交到 暂存区stage
 $ git commit -m "wrote a readme file"  //把文件提交到仓库。暂存区stage 提交到 master分支
 $ git status  //看仓库当前的状态
-$ git diff readme.txt  //对比不同 
+$ git diff readme.txt  //对比不同
 $ git log  //查看历史记录
 $ git log --pretty=oneline  //查看历史记录-单行显示
+$ git reflog  // 查看历史操作和版本号
 $ git reset --hard HEAD^  //回退到上一个版本。（HEAD^^ 上上版，HEAD~100 前100版）
 $ git reset --hard 1094a  //回退到指定版
 $ cat readme.txt  //显示文件内容
@@ -32,13 +60,16 @@ $ git checkout -- readme.txt //工作区修改还原。本地工作区修改: 1.
 $ git reset HEAD readme.txt  //暂存区的修改撤销掉（unstage），重新放回工作区。add后撤回
 $ git rm test.txt  //删除本地文件
 
+在vs中每次更新代码都会要输入账号密码，方便起见，可以配置一下让GIT记住密码账号。
+git config --global credential.helper store   //在Git Bash输入这个命令就可以了
+
 3.创建SSH Key,在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa(私钥)和id_rsa.pub(公钥)这两个文件
   如果没有:
 $ ssh-keygen -t rsa -C "wuhf@ngrihealth.com"
     会输出下面语句
     Generating public/private rsa key pair.
     Enter file in which to save the key (/Users/susonglin/.ssh/id_rsa): //这里直接按enter（回车键）
-    
+
     Enter passphrase (empty for no passphrase):
     //提示你输入密码
     Enter same passphrase again:
@@ -50,6 +81,9 @@ $ ssh-keygen -t rsa -C "wuhf@ngrihealth.com"
     $ open ~/.ssh
     即可，打开文件夹(弹出来)，就可以找到id_rsa.pub文件了。
     然后用Sublime编译器打开(为在 Github 上添加你的 SSH KEY 做铺垫)
+
+    查看文件内容
+    $ cat /c/Users/username/..ssh/id_rsa_pub
 4.验证你的Github连接
 $ ssh -T git@github.com
     The authenticity of host 'github.com (192.30.255.113)' can't be established.
@@ -59,7 +93,6 @@ $ ssh -T git@github.com
     输入yes后，会显示出以下代码(表示成功了)
 
     Hi xxxx! You've successfully authenticated, but GitHub does not provide shell access.
-
 5.本地版本库传到远程github
 $ git remote add origin https://github.com/wu-ben/learngit.git //关联远程库
     ERROR: Repository not found.
@@ -74,3 +107,293 @@ $ git push -u origin master  //把本地库的内容推送到远程
 $ git clone git@github.com:wu-ben/gitskills.git
 $ cd gitskills  //进入文件夹
 $ ls  //显示文件夹内容
+
+------------------------------------
+$ cat .gitconfig  // 生成配置文件
+获取帮助
+$ git help <verb>
+$ git <verb> --help
+
+------------------------
+$ man git-<verb>
+$ git help config
+--------------------------------------------
+error: failed to push some refs to 'https://github.com/wu-ben/html.git'
+错误：未能将某些引用推送到“https://github.com/wu-ben/html.git”
+hint: Updates were rejected because the remote contains work that you do
+提示：更新被拒绝，因为遥控器包含您所做的工作
+hint: not have locally. This is usually caused by another repository pushing
+提示：没有本地。 这通常是由另一个存储库推送造成的
+hint: to the same ref. You may want to first integrate the remote changes
+提示：对同一个参考。 您可能希望首先集成远程更改
+hint: (e.g., 'git pull ...') before pushing again.
+提示:(例如，'git pull ...'）再次推送之前。
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+提示：有关详细信息，请参阅'git push --help'中的'关于快进的说明'。
+解决：
+执行 git pull 远程分支名 本地分支名
+再执行git push命令
+//本地仓库和远程仓库未关联，加上--allow-unrelated-histories合并2个仓库历史
+$ git pull origin master --allow-unrelated-histories
+$ git push --set-upstream origin master
+
+---------------------------------------------------------------
+
+git出现Your branch and 'origin/feature1' have diverged解决方法
+假设，远程上的 commit 是 A -> B
+你在 A 电脑上 commit 和 push 之后，远程变成了 A -> B -> C -> D
+现在，B 电脑上还是 A -> B。然后你 commit 了，那么 B 电脑上就是 A -> B -> E。
+所以，你需要的是把 B 电脑上的历史线变成 A -> B -> C -> D -> E
+这时，你需要在 B 电脑上：
+git pull --rebase origin feature1
+这个命令等同于：
+git fetch origin
+git rebase origin/feature1
+执行之后，B 电脑上的历史线就会变成 A -> B -> C -> D -> E，然后你就可以 push 了
+多说一句，之所以显示上面的“错误”，是因为 A -> B -> C -> D 和 A -> B -> E 有一个共同的祖先 B，你在本地多了一个 commit E，远程多了两个 commits C 和 D。这个时候如果你要在 A -> B -> E 的 branch 上 push，git 猜不出到底想保留 C 和 D，还是只要 E，还是都要，就会出现上面的提示。
+--------------------------------
+如果不需要保留本地的修改，只要执行下面两步：
+git fetch origin
+git reset --hard origin/feature1
+
+当我们在本地提交到远程仓库的时候，如果遇到上述问题，我们可以首先使用如下命令：
+git rebase origin/feature1
+git pull --rebase
+git push origin feature1  // 把内容提交到远程仓库上。
+-------------------------------------------------
+git config 允许你获得和设置配置变量；这些变量可以控制Git的外观和操作的各个方面
+存储在三个不同位置，下面的级别重写上一个级别的值
+1. C:\Program Files\Git\etc\gitconfig  或者写成 /etc/gitconfig
+2. C:\Users\admin\gitconfig  或者写成 ~/.gitconfig
+3. 项目目录\.git\config
+---------------------------------------
+比较常用的
+git cherry origin/master 显示在当前分支origin/master下提交的状态
+git log ..origin/master --online 查看origin/master 提交列表
+
+git checkout // 检出一个分支或路径到工作区
+git status // 查看工作区状态
+git checkout -b // 检出一个分支或路径到工作区
+git commit // 记录变更到版本库
+git commit -a = git add + git commit // 跳过Git的staged步骤，直接commit
+
+git diff // 显示提交之间、提交和工作区之间等的差异
+git add // 添加文件内容至索引 工作区Working Directory 提交到 暂存区stage
+git clean -fdx
+git fetch --prune // 从另外一个版本库下载对象和引用
+git pull --ff-only // 获取并合并另外的版本库或一个本地分支
+git branch -D // 列出、创建或删除分支
+git push // 更新远程引用和相关的对象
+git merge // 合并两个或更多开发历史
+
+git add //建立跟踪
+没有添加到暂存区的数据直接rm删除即可。
+git rm // 删除 工作区 和 索引 中的文件
+       // 删除 工作区                  删除 暂存区 或 分支上 的文件
+git rm file = rm file+ git add file
+    rm file 删除本地文件
+    git add file 提交删除的步骤同步到git仓库
+
+git rm --cached file 停止跟踪这些文件。会从index里面删除该文件，下次commit的时候会修改git仓库，但是本地的文件还是保留
+    1.文件不想提交到git上去了，但是又被检测到有变化，显示Untracked files，可以停止跟踪此文件
+    2.要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制
+
+git rebase // 本地提交转移至更新后的上游分支中
+git reset // 重置当前HEAD到指定状态
+git revert
+git push origin :yourbranch
+
+1.查看所有分支
+    git branch -a
+2.查看当前使用分支(结果列表中前面标*号的表示当前使用分支)
+    git branch
+3.切换分支
+    git checkout 分支名
+
+--------------------------------------------------
+git pull 冲突 清除 staged
+问题
+    当 git pull 时，如果有冲突，那么除了冲突文件，其它文件都会做为staged区的文件保存起来。
+重现
+    Pull is not possible because you have unmerged files.
+    无法进行拉取，因为您有未合并的文件。
+    Please, fix them up in the work tree, and then use 'git add/rm <file>'
+    请在工作树中修复它们，然后使用'git add / rm <file>'
+    as appropriate to mark resolution, or use 'git commit -a'.
+    恰当地标记解决，或使用'git commit -a'。
+解决
+    1. git reset --hard FETCH_HEAD
+    将本地的冲突文件冲掉，不仅需要reset到 MERGE-HEAD 或者 HEAD，还需要--hard。没有后面的hard，不会冲掉本地工作区。只会冲掉stage区。
+    2. git pull
+解释
+ETCH_HEAD 指的是: 某个branch在服务器上的最新状态'.
+每一个执行过fetch操作的项目'都会存在一个FETCH_HEAD列表,
+这个列表保存在 .git/FETCH_HEAD 文件中, 其中每一行对应于远程服务器的一个分支.
+当前分支指向的FETCH_HEAD, 就是这个文件第一行对应的那个分支.
+----------------------------------------------------
+Git提交和推送的区别
+git一般分:
+git add . ->将修改添加至本地缓存
+git commit -m 'msg' ->将本地缓存保存到本地仓库中
+git push ->将本地仓库推送至服务器
+git pull ->将服务器的代码更新到本地仓库中
+---------------------------------------------
+git log 退出
+如果commit（提交）比较多，git log 的内容就会比较多；当满屏放不下，就会显示冒号，
+回车（往下滚一行）
+空格（往下滚一页）可以继续查看剩余内容；
+退出：英文状态下 按 q 可以退出git log 状态。
+
+保存并退出：
+（1）按 Esc 键退出编辑模式，英文模式下输入 :wq ，然后回车(write and quit)。
+（2）按 Esc 键退出编辑模式，大写英文模式下输入 ZZ ，然后回车。
+
+不保存退出：
+按 Esc 键退出编辑模式，英文模式下输入 :q! ，然后回车。
+按 Esc 键退出编辑模式，英文模式下输入 :qa! ，然后回车
+----------------------------------------------------------------
+
+mkdir proName // 手动新建文件夹proName或命令
+git init // 初始化项目
+git remote add origin git@github.com:xxx/xxx.git // 与远程分支建立关联（远程仓库链接在git上）
+git fetch origin dev // 拉取远程分支至本地（dev为远程仓库的分支名）
+git checkout -b dev(本地分支名) origin/dev(远程分支名)  // 创建本地分支并关联到远程分支
+
+git branch // 查看本地分支
+git branch -a // 查看当前所在分支及远程分支
+git branch -r // 查看远程分支
+git branch -vv // 查看本地分支与远程分支的关联关系
+
+git add . // 暂存当前分支所有本地修改的文件
+git commit -m 'logs' // 提交本次修改的日志logs
+git push // 将本地修改内容提交至远程
+
+git pull // 拉取
+git merge dev // 切换本地分支至dev
+git status // 查看当前分支状态
+git log // 查看提交日志
+
+git diff dev //比较本地分支与远程分支区别
+git diff // 比较「工作目录(working tree)/ 工作区」与「索引(index)/ 暂存区」之间的差异
+git diff --cached 比较 暂存区 与 本地仓库
+git diff HEAD 比较 本地仓库 与 工作区
+git diff --cached HEAD  // 比较「当前的索引状态(index)/ 暂存区」与「当前分支的最新版(repo. HEAD)」之间的差异0
+git diff commitId1 commitId2 比较两个commit之间的区别
+    参数
+    -- file1 file2
+        限制，只比较file1和file2两个文件的差异
+    --stat
+        仅仅显示哪些文件被改动（删了多少行、新增多少行），如“1 file changed, 2 insertions(+), 1 deletion(-)”
+
+常用操作示意图
+-----------------------------------------------------------------------
+Working Tree           Index/Cache       Repository(HEAD)
+ 工作目录               暂存区域          本地仓库           远程仓库
+    | ------ git add -----> | --git commit--> | --- git push --> |
+    | <----- git rm ------- |                 | <-- git clone -- |
+    | <-- git reset HEAD -- |                 | <-- git pull --  |
+    | <------- git reset --hard 3de15d4 ----- |                  |
+----------------------------------------------------------------------
+
+git reset --soft HEAD~2
+                Working Tree   Index/Cache  Repository(HEAD)
+soft                    1            1           0
+Mixed(default)          1            0           0
+Hard                    0            0           0
+----------------------------------------------------------------------
+復原方式
+如果不小心執行 reset 或 rebase 等可能會造成版本號消失的指令時，而我們想要恢復但卻在演進線圖(commit log)上找不到commit結點，這個時候就可透過 git reflog 找出所有歷史紀錄，透過 HEAD@{N} 這個特殊的「參考名稱」來對此版本「定位」，進而使用 git reset --hard HEAD@{N} 指令回歸原有版本。
+----------------------------------------------------
+
+Git中文件的4种状态
+Untracked:
+    未跟踪，此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.
+Unmodify:
+    未修改，文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致.
+    这种类型的文件有两种去处:
+        (1). 如果它被修改, 而变为Modified.
+        (2). git rm 移出版本库, 则成为Untracked文件
+Modified:
+    文件已修改, 仅仅是修改, 并没有进行其他的操作.
+    这个文件也有两个去处,
+        (1). git add 可进入暂存staged状态,
+        (2). git checkout 则丢弃修改变, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改
+Staged:
+    已暂存，
+        (1). git commit 则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为 Unmodify 状态.
+        (2). git reset HEAD filename 取消暂存, 文件状态为 Modified
+-----------------------------------------------------------------------------
+Untracked             Unmodified             Modified(Unstaged)      Staged
+ 未跟踪                 未修改                已修改                 已暂存
+    | ------------------------ Add the file -------------------------> |
+    |                      | --Edit the file --> |                     |
+    |                      |                     | --Stage the file--> |
+    | <--Remove the file-- |                     |                     |
+    |                      | <----------------- Commit --------------- |
+-----------------------------------------------------------------------------
+
+1. $ git status 查看有多少次 提交了 没有push到版本库
+       and have 1 and 62 different commits each, respectively.  （有1个62不同）
+2. $ git cherry -v //查看已经提交 但是未传送到远程代码库的提交描述/说明
+        94ffea656792b53e14823efa2e97555ec055926b 0菜单全显示
+3. $ git log feature1 ^origin/feature1  // 查看已经提交但是未传送到远程代码库的提交详情（可能不止一次）
+        commit 94ffea656792b53e14823efa2e97555ec055926b (HEAD -> feature1)
+        Author: wuhf <149039083@qq.com>
+        Date:   Thu May 14 09:10:30 2020 +0800
+
+---------------------------------------------------------------
+还原到某次commit
+一、不可逆提交
+(1). reset
+git log // 查看提交记录
+选择某次提交的 commitId , ctrl+Insert 复制提交ID
+git reset --hard commitId // 还原到某一次提交
+
+(2) checkout
+git checkout commitId // 与 git reset –hard  commit ID  效果一样
+
+二、可逆提交
+git checkout commitId 文件名 // 还原某个文件到某次commit
+git log 查看记录
+上一次的提交记录没有被还原掉
+-------------------------------------------------------------------
+版本回退
+一、 git revert
+撤销某次操作，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。
+是提交一个新的版本，将需要revert的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。
+    (1).当代码已经commit但没有push时，可使用如下命令操作：
+        git revert HEAD //撤销倒数第一次提交
+        git revert HEAD^ //撤销倒数第二次提交
+        git-revert HEAD~2 //撤销倒数第三次提交
+        git revert commitId //（比如：fa042ce57ebbe5bb9c8db709f719cec2c58ee7ff）撤销指定的版本，撤销也会作为一次提交进
+    (2).当代码已经commit并push时，可使用如下命令：
+        git revert HEAD~1 //代码回退到前一个版本
+当回退有冲突时，需手动合并冲突并进行修改，再 commit 和 push。这相当于增加了一次新的提交并且版本库中有记录。
+
+二、 git reset
+git reset 是撤销某次提交，但是此次之后的修改都会被退回到暂存区。除了默认的 mixed 模式，还有 soft 和 hard 模式。
+    (1).如果我们的有两次 commit 但是没有 push 代码
+        git reset HEAD~1  // 撤销前一次 commit，所有代码回到 Working Copy
+    (2).假如我们有几次代码修改，并且都已经 push 到了版本库中。
+
+        git reset --hard HEAD~2  // 本地的Wroking Copy回退到2个版本之前。
+    (3).只回退某个指定文件到指定版本
+        git reset 94ffea656792b53e14823efa2e97555ec055926b  xxx
+    (4).回退到指定版本
+        git reset --hard commitId（通过git log可查看提交的commitId）
+如果你使用的是webstorm，它也有很好用的git插件，比vsCode的GitLens好使，也有人说webstorm比较重，不喜欢；当然，个人选择，随意。
+
+
+--------------------------------------------------------
+https://blog.csdn.net/GarfieldEr007/article/details/85320260
+1. merge
+    Merge incoming changes into the current branch
+    把远程服务端的dev版本代码合并到当前本机fork下来的dev本地分支
+    上游分支合并下游分支内容的时候使用 merge
+        dev => master //下游dev合并到上游master
+2. rebase
+    Rebase the current branch on top of incoming Changes
+    把当前分支的基放在即将拉下来的change 的上面
+        master => dev //下游分支更新上游分支内容的时候使用
+3. 更新当前分支的内容时一定要使用 --rebase 参数
+
