@@ -5,3 +5,7 @@
 <img src="https://stock-cos.mabangerp.com/224895/AP832%20V_1605684187.jpg">
 </a>
 四、一小节
+五、增加视频地址
+<video width="854" height="480" controls="controls">
+  <source src="https://ugc.kizoa.app/klon1/f344337761_9942532.mp4" type="video/mp4" />
+</video>
