@@ -1,7 +1,12 @@
+https://github.com/
+wu-ben
+whf82828@gmail.com
+Whf2github
+
 当前项目下配置用户名邮箱
 $git config user.name "your name"
 $git config user.email "your email"
-$git config --listc
+$git config --list
 
 $git status
 Your branch and 'origin/master' have diverged,
@@ -89,6 +94,9 @@ $ ssh -T git@github.com
     The authenticity of host 'github.com (192.30.255.113)' can't be established.
     RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
     Are you sure you want to continue connecting (yes/no)? yes
+    无法确定主机“ github.com（192.30.255.113）”的真实性。
+     RSA密钥指纹为SHA256：nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8。
+     您确定要继续连接（是/否）吗？ 是
 
     输入yes后，会显示出以下代码(表示成功了)
 
