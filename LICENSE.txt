@@ -1,1 +1,47 @@
-123465
+一、创建一个空目录
+mkdir learngit
+cd learngit
+pwd
+
+pwd用于显示当前上当
+
+二、把目录变成git仓库
+git init
+
+三、
+git add <file[ file]...>  // 文件添加到暂存区
+git commit -m "提交说明"  // 暂存区文件提交到远程
+
+git status  // 查看结果
+git diff <file> // 查看不同
+git log // 显示所有提交过的版本信息
+git log --pretty=oneline // 只会显示版本号和提交时的备注信息
+
+git reset --hard HEAD^ //  （或：HEAD~1）工作区	内容退回到上一版本，远程内容不变。 其实只是移到了指向HEAD的指针
+git reset --hard <commit_id> // 工作区内容退回到指定版本，远程内容不变
+
+git reflog //显示所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）
+
+四、撤消修改
+（一）、未使用 git add 到暂存区，撤消修改
+1. 撤消修改
+  git checkout -- <file> // 撤销修改，回到上一版本，或回到添加进暂存区之后的状态
+  git checkout .   //撤销全部文件或文件夹的修改
+
+2. 撤消新增，就是删除文件
+  rm -rf filname   //  单个文件/文件夹
+  git clean -xdf  // 删除所有新增文件（如果文件已经已经 git add 到暂存区，并不会删除）
+  git clean -xdff // 删除所有新增文件和文件夹 （如果文件已经已经 git add 到暂存区，并不会删除）
+  
+（二）、已经 git add 到暂存区，撤消修改
+1. git reset HEAD filename  // 撤消单个文件
+2. git reset HEAD .  // 撤消所有文件
+
+（三）、 已经 commit 到本地仓库，未push到远程，撤消commit，本地修改不变
+git reset commit_id  
+
+（四）、已经 commit 到本地仓库，未push到远程，撤消本地修改，工作区和暂存区都撤消。
+              其实只移动了指针，只要未关闭git窗口并记住本次的commit_id，可以再移动回来
+git reset --hard <commit_id> // 工作区内容退回到指定版本，远程内容不变
+
+
