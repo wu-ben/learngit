@@ -10,7 +10,7 @@
 3. 执行了commit
 黄色图标 master "提交注释"
 
-           0          |   1    |     --add-->    |   2    |       --commit-->      |   3
+           0                       |    1      |        --add-->         |     2    |           --commit-->       |   3
 还原 <--git checkout-- | 工作区 | <--reset HEAD-- | 暂存区 | <--reset "commit_id"-- | 本地版本库
 
 git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”
@@ -19,13 +19,34 @@ git checkout其实是用版本库里的版本替换工作区的版本，无论�
 一、创建一个空目录
 mkdir learngit
 cd learngit
-pwd
+pwd // 显示当前路径
 
-pwd 用于显示当前路径
-ls 显示当前目录下的文件
+1. ls  // List directory contents，用来显示目录或具体文件列表
+  ls -1  // 每行列出一个文件，以单列形式列出
+  ls -a  // 列出所有文件，包括隐藏文件
+  ls -la  // 列出所有文件的长格式 （含权根、所有权、大小、修改日期）
+  ls -lh  // 使用可读单位（KB, MB, GB）显示大小的长格式列表
+  ls -lS  // 按文件大小排序的长格式列表（降序）
+  ls -ltr  // 按修改时间排序的长格式列表（升序）
+
+2. cat // Print and concatenate files，打印、合并文件。
+  cat file  // 将文件内容打印出来
+  cat file1 file2>file3  // 将file1和file2合并到file3尾部
+  cat file1 file2>>file3  // 将file1和file2合并到file3头部
+
+3. mv // Move or rename files and directories，移动或重命名文件和目录
+  mv file1.txt file2.txt // 将file1文件重命名为file2
+  mv file1.txt dir1  // 将file1文件移动到dir1目录
+
+4. touch file // change file timestamps 用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的空白文件
+
+5. vim file // 用编辑器打开文件
 
 二、把目录变成git仓库
 git init
+
+三、 git log 中止
+    q
 
 三、
 git add <file[ file]...>  // 文件添加到暂存区
@@ -40,11 +61,13 @@ git reset --hard HEAD^ //  （或：HEAD~1）工作区	内容退回到上一版�
 git reset --hard <commit_id> // 工作区内容退回到指定版本，远程内容不变
 
 git reflog //显示所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）
+git log --graph --pretty=oneline --abbrev-commit // 显示树形历史
+  // --graph 显示分支合并图
 
 四、撤消修改
 （一）、未使用 git add 到暂存区，撤消修改
 1. 撤消修改
-  git checkout -- <file> // 撤销修改，回到上一版本，或回到添加进暂存区之后的状态。不加-- 表示切换分支
+  git checkout -- <file> // 撤销修改，文件内容回到上一版本，或回到添加进暂存区之后的状态，无法再回来了。不加-- 表示切换分支
   git checkout .   //撤销全部文件或文件夹的修改
 
 2. 撤消新增，就是删除文件
@@ -72,6 +95,7 @@ git remote add origin git@github.com:wu-ben/learngit.git
 2. 本地推送到远程
 git push -u origin master
   // 第一次推送，加上-u，表示把本地master推送到远程，同时关联起来，以后推送不需要加-u
+  git push origin master
 
 第一次clone 或 push 会警告：
   这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。
@@ -80,8 +104,186 @@ git push -u origin master
 二、先建远程，再关联本地
 1. git clone git@github.com:wu-ben/learngit.git
 
-三、创建分支
-1. git checkout -b dev
+三、创建、切换、删除分支
+1. git checkout -b dev  // 创建并切换分支
   加上-b表示创建并切换，相当于以下两条命令
-   git branch dev
-   git checkout dev
+   git branch dev  // 创建分支
+   git checkout dev  // 切换分支
+
+1. git switch -c dev  // 新版创建并切换分支
+   git switch master  // 新版切换分支
+
+2. 查看当前分支
+  git branch
+
+3. 在master分支上，将dev分支合并到master
+  git merge dev
+
+4. 删除分支
+  git branch -d dev
+
+5. 强行删除修改后未保存的分支
+  git branch -D dev
+
+四、分支管理策略
+1. 合并分支默认使用Fast forward模式，此模式下删除分支后会丢掉分支信息
+
+2. 禁用Fast forward模式，git会在marge时生成一个新的commit
+  git merge --no-ff -m "合并dev到master，禁用Fast forward模式" dev
+
+3. 使用git log查看
+  git log --graph --pretty=oneline --abbrev-commit
+  // --graph 图表; --abbrev-commit 缩写-承诺
+
+五、存储快照，恢复，挑选分支提交内容应用到新分支
+1. git stash
+  // 存储快照
+2. git stash list
+  // 查看快照 
+3. 恢复快照
+  git stash apply // 恢复快照
+  git stash drop  // 删除快照
+
+  git stash pop  // 恢复并删除快照
+
+4.
+  git switch dev  // 切换到dev分支
+  git cherry-pick 80a76a9  //  将80a76a9的提交应用到dev分支
+  生成一条新的 commit_id
+
+六、远程仓库
+1. 查看远程仓库
+  git remote
+    origin // 远程仓库默认名称
+
+  git remote -v 
+    origin  https://github.com/wu-ben/learngit.git (fetch)  // 拉取地址
+    origin  https://github.com/wu-ben/learngit.git (push)  // 推送地址
+
+  git branch     // 查看本地分支
+  git branch -r  // 查看远程分支
+  git branch -a  // 查看所有分支
+
+2. 远程分支改名
+  (1) git branch -m oldName newName  // 更改本地分支名
+    不需要 git branch -d oldName // 删除本地分支。-D 强制删除未合并分支
+  (2) git push origin newName  // 将新分支名推送到远程
+  (3) git branch --set-upstream-to=origin/remote_branch local_branch  //将本地新分支名与远程关联
+  (4) github网站上点击更改默认分支
+  (5) git push --delete origin oldName  // 删除远程分支
+
+  关联并推送
+  git push --set-upstream origin new_branch
+  
+
+3. 删除远程分支
+  git push origin --delete [branchname]
+
+  git branch -a  // 查看全部分支(包含本地和远程)
+  git checkout -b branchName commitId  // 根据指定版本号创建分支
+  git fetch -p  // 清理本地无效分支(远程已删除本地没删除的分支)
+  git branch | grep 'branchName'  // 如果分支太多，还可以用此命令进行分支模糊查找 
+
+2. 推送到远程
+  git push origin master // 指定远程分支
+  git push origin dev
+
+3. 创建本地分支，并与远程分支关联
+  git checkout -b dev origin/dev
+
+4. 拉取远程分支
+  git pull <remote> <branch>
+
+5. 本地分支与远程分支链接
+  git branch --set-upstream-to=origin/<branch> dev
+  git branch --set-upstream dev origin/dev
+
+6. 删除远程关联
+  git remote rm origin
+
+7. 同时关联2个地址的远程仓库
+  // git remote add origin git@gitee.com:whf20g/learngit.git  // 关联gitee远程仓库，默认远程仓库名为origin 
+  git remote rm origin // 先删除远程关联，远程库默认名称是 origin
+  git remote add gitee git@gitee.com:whf20g/learngit.git // 关联gitee远程仓库，更改远程仓库名为 gitee
+  git remote -v  // 查看远程信息
+
+
+
+6. 合并分支
+  git merge  保存项目完整的历史，并且避免重写公共分支上的 commit。主分支上应用次分支上的代码，必须有master操作权限
+                       master
+                         /
+C0 ---- C1 ---- C2 ---- C5---- C6
+                 \            / merge
+                  C3 ---- C4
+                           \
+                          HEAD dev
+
+  git rebase 生成一个干净的、线性的提交历史，没有不必要的合并提交。在此分支上应用主分支的代码，然后可以再使用merge合并到master
+              master                                 master       HEAD dev
+                /                                      /            /
+C1 ---- C2 ---- C5      rebase -->    C1 ---- C2 ---- C5          C4
+         \                                             \          / 
+         C3 ---- C4                                     C3 ---- C4      
+                  \  
+                HEAD dev              C3,C4的commit_id改变，内容不变。不会生成新的commit C6
+
+
+   (1). marge  
+    git switch feature  // 切换到feature分支
+    git merge master  // master穿插到feature里合并
+
+   (2). rebase 步骤
+    git switch feature // 切换到feature分支
+    git rebase master  // 把feature分支移动到master后面合并
+    解决冲突
+    git add .
+    git rebase --continue
+    直到没有冲突
+    git push -f // 强制推送到远程
+      再执行merge合并到master
+
+    git rebase --abort // 中途放弃
+    git rebase --quit // 退出
+
+    git rebase -i master  // 允许 更改并入新分支的提交。
+
+7. rebase 使用法则
+   (1). 绝不要在公共的分支上使用它
+   (2). rebase之后的master无法推送到远程，因为分支历史改变，可以使用 --force 强制推送
+      git push --force
+
+8. 交互式rebase，只能用在本地分支。合并3次提交
+  git switch featrue
+  git rebase -i HEAD~3
+
+# p, pick = use commit
+     pick：正常选中
+# r, reword = use commit, but edit the commit message
+     reword：选中，并且修改提交信息；
+# e, edit = use commit, but stop for amending
+     edit：选中，rebase时会暂停，允许你修改这个commit
+# s, squash = use commit, but meld into previous commit
+     squash：选中，会将当前commit与上一个commit合并
+# f, fixup = like "squash", but discard this commit's log message
+     fixup：与squash相同，但不会保存当前commit的提交信息
+# x, exec = run command (the rest of the line) using shell
+     exec：执行其他shell命令
+
+七、创建标签
+1. git tag <name> [commit_id]
+
+2. 查看标签
+  git tag
+  git show <name>
+
+3. 删除标签
+  git tag -d v0.1
+
+4. 推送到远程
+  git push origin v0.1
+  git push origin --tags  // 一次推送全部
+
+5. 删除远程标签
+  git tag -d v0.1 // 先删除本地
+  git push origin :ref/tags/v0.1 // 再删除远程   
