@@ -1,7 +1,11 @@
-https://github.com/
+https://github.com
+gmail.com/W****github
 wu-ben
-whf82828@gmail.com
-Whf2github
+
+http://gitee.com
+163.com/w***gitee
+whf20g
+
 
 当前项目下配置用户名邮箱
 $git config user.name "your name"

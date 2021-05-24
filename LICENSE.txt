@@ -1,3 +1,6 @@
+切换盘符
+cd /d/ 
+cd d:
 
 1. 本地内容更改了，但是没执行 git add
 红色图标 local uncommitted changes, not checked in to index
