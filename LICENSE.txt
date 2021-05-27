@@ -1,6 +1,12 @@
 切换盘符
-cd /d/ 
+cd /d/
 cd d:
+
+cmd打开当前文件夹
+start.
+
+ls或dir 列出当前目录下的文件，ls的内容带颜色
+cat xxx.txt  输出xxx的内容
 
 1. 本地内容更改了，但是没执行 git add
 红色图标 local uncommitted changes, not checked in to index
@@ -77,13 +83,13 @@ git log --graph --pretty=oneline --abbrev-commit // 显示树形历史
   rm -rf filname   //  单个文件/文件夹
   git clean -xdf  // 删除所有新增文件（如果文件已经已经 git add 到暂存区，并不会删除）
   git clean -xdff // 删除所有新增文件和文件夹 （如果文件已经已经 git add 到暂存区，并不会删除）
-  
+
 （二）、已经 git add 到暂存区，撤消修改
 1. git reset HEAD filename  // 撤消单个文件。文件内容不变，只是撤消git add命令
 2. git reset HEAD .  // 撤消所有文件
 
 （三）、 已经 commit 到本地仓库，未push到远程，撤消commit命令，本地修改不变
-git reset commit_id  
+git reset commit_id
 
 （四）、已经 commit 到本地仓库，未push到远程，撤消本地修改，工作区和暂存区都撤消。
               其实只移动了指针，只要未关闭git窗口并记住本次的commit_id，可以再移动回来
@@ -142,7 +148,7 @@ git push -u origin master
 1. git stash
   // 存储快照
 2. git stash list
-  // 查看快照 
+  // 查看快照
 3. 恢复快照
   git stash apply // 恢复快照
   git stash drop  // 删除快照
@@ -159,7 +165,9 @@ git push -u origin master
   git remote
     origin // 远程仓库默认名称
 
-  git remote -v 
+  git remote show branchname // 查看远程分支branchname的信息
+
+  git remote -v
     origin  https://github.com/wu-ben/learngit.git (fetch)  // 拉取地址
     origin  https://github.com/wu-ben/learngit.git (push)  // 推送地址
 
@@ -183,7 +191,7 @@ git push -u origin master
 
   关联并推送
   git push --set-upstream origin new_branch
-  
+
 
 3. 删除远程分支
   git push origin --delete [branchname]
@@ -191,7 +199,7 @@ git push -u origin master
   git branch -a  // 查看全部分支(包含本地和远程)
   git checkout -b branchName commitId  // 根据指定版本号创建分支
   git fetch -p  // 清理本地无效分支(远程已删除本地没删除的分支)
-  git branch | grep 'branchName'  // 如果分支太多，还可以用此命令进行分支模糊查找 
+  git branch | grep 'branchName'  // 如果分支太多，还可以用此命令进行分支模糊查找
 
 2. 推送到远程
   git push origin master // 指定远程分支
@@ -211,9 +219,9 @@ git push -u origin master
   git remote rm origin
 
 7. 同时关联2个地址的远程仓库
-  // git remote add origin git@gitee.com:whf20g/learngit.git  // 关联gitee远程仓库，默认远程仓库名为origin 
+  // git remote add origin git@gitee.com:whf20g/learngit.git  // 关联 gitee远 程仓库，默认远程仓库名为 origin
   git remote rm origin // 先删除远程关联，远程库默认名称是 origin
-  git remote add gitee git@gitee.com:whf20g/learngit.git // 关联gitee远程仓库，更改远程仓库名为 gitee
+  git remote add gitee git@gitee.com:whf20g/learngit.git // 关联 gitee 远程仓库，更改远程仓库名为 gitee
   git remote -v  // 查看远程信息
 
 
@@ -232,13 +240,13 @@ C0 ---- C1 ---- C2 ---- C5---- C6
               master                                 master       HEAD dev
                 /                                      /            /
 C1 ---- C2 ---- C5      rebase -->    C1 ---- C2 ---- C5          C4
-         \                                             \          / 
-         C3 ---- C4                                     C3 ---- C4      
-                  \  
+         \                                             \          /
+         C3 ---- C4                                     C3 ---- C4
+                  \
                 HEAD dev              C3,C4的commit_id改变，内容不变。不会生成新的commit C6
 
 
-   (1). marge  
+   (1). marge
     git switch feature  // 切换到feature分支
     git merge master  // master穿插到feature里合并
 
@@ -295,4 +303,4 @@ C1 ---- C2 ---- C5      rebase -->    C1 ---- C2 ---- C5          C4
 
 5. 删除远程标签
   git tag -d v0.1 // 先删除本地
-  git push origin :ref/tags/v0.1 // 再删除远程   
+  git push origin :ref/tags/v0.1 // 再删除远程
