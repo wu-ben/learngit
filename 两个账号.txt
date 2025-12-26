@@ -1,0 +1,217 @@
+https://github.com
+gmail.com/W****github
+wu-ben
+
+http://gitee.com
+163.com/w***gitee
+whf20g
+看看我现在叫什么名
+在本文件夹\.git\config 文件里配置 当前用户名和邮箱
+配置当前用户名和邮箱为
+whf-xo
+wuhaifeng@xiolift.com
+
+改为系统默认用户名和邮箱
+wuhf-hp163
+whf81248@163.com
+只要用rsa账号建立了连接，在本目录的\.git\config文件里用户名和邮箱可以随便起名字
+
+一、git config 存于3个位置
+1. /ect/gitconfig  // 系统级 查看 --system -l
+2. ~/.gitconfig  // 用户级  查看 --global -l
+3. 仓库目录/.git/config  项目级 查看 --local -l
+
+二、操作指定级别的config
+1. 查看生效配置 git config -l
+
+1. 查看全局设置
+    git config --global --list  // --list 简写 -l
+    
+    查看当前项目设置
+    git config --local -l
+    
+    查看用户名和邮箱
+    git config user.name
+    git config user.email
+
+2. 增加全局项
+    git config --global --add configName configValue
+    git config --global --add user.name hahaha  // 增加user.name为hahaha
+
+3. 修改用户名 修改全局加上 --global，修改当前项目不用加
+    git config --global configName configValue  // 只能修改唯一configName的值
+
+4. 删除
+    git config --global --unset configName
+
+5. 多个值时无法删除，需要替换
+    git config --global --replace-all user.name "wuhf"
+
+----------------------------------------------------------------
+三、本机建立2个git账号
+1. 创建SSH Key
+    ssh-keygen -t rsa -C "whf81248@163.com"
+   指定名称
+    Enter file in which to save the key (/root/.ssh/id_rsa): /root/.ssh/id_rsa_gitee
+   按2次回车，表示密码设为空
+
+2. 创建 github 的SSH Key为
+    ssh-keygen -t rsa -C "whf82828@gmail.com"
+   命名为
+    id_rsa_github
+
+3. 在ssh文件夹下新建config文件，config文件主要用于管理密钥信息，并没有实际功能，不添加config文件直接为密钥添加信任也是可以的。
+   但是考虑到密钥信息的管理，强烈建议添加config文件，配置好密钥的信息。编辑内容
+    # gitHub whf81248@163.com
+    Host github
+    HostName github.com
+    # User并不是user.name，不知有什么用
+    User hp-hub-163
+    # 私钥
+    IdentityFile ~/.ssh/id_rsa
+
+    # gitHub whf82828@gmail.com
+    Host github_gmail
+    HostName github.com
+    User wu-ben
+    IdentityFile ~/.ssh/id_rsa_github_gmail
+
+4. 复制id_rsa_xxx 的内容到对应的网站的SSH里
+
+5. 添加文件到ssh，因为默认只读取id_rsa，为了让SSH识别新的私钥，需将其添加到SSH agent中
+    ssh 依次从下面的三个地方读取配置。
+        命令行选项，就是指ssh -i， -i (IdentitiesOnly) 选项的默认值包含 ~/.ssh/id_rsa
+        用户级配置文件 ~/.ssh/config
+        系统级配置文件 /etc/ssh/ssh_config
+    ssh-agent：是一个可以控制和保存公钥身份验证所使用的私钥的程序，可以理解为一个密钥管理器。所有其他窗口或程序都作为 ssh-agent 程序的客户端启动
+    ssh-agent 是一个守护进程（daemon），设计它的唯一目的就是对解密的专用私钥进行高速缓存。
+
+  (1) 清空私钥
+    $ ssh-add -D
+
+    如果没有正在运行的 ssh-agent，运行
+    exec ssh-agent bash  // 静默启动 ssh-agent
+    或
+    eval $(ssh-agent -s)  //开启代理认证指令
+
+
+  (2) 添加私钥，可添加多个
+   ssh-add ~/.ssh/id_rsa_gitee  // 指定具体路径的写法：ssh-add "C:\Users\Administrator\.ssh\my_first_private_key"
+
+
+   如果出现 Could not open a connection to your authentication agent (无法打开到身份验证代理的连接)的错误，运行
+    ssh-agent bash
+    ssh-add ~/.ssh/id_rsa_gitee
+
+  (3) 查看已添加的私钥
+   ssh-add -l
+
+6. 测试是否连接成功
+    ssh -T git@gitee.com // 未配置config时
+    ssh -T git@github  // 使用config中配置的Host
+    ssh -T git@gitee  // 使用config中Host配置
+
+7. 删除默认全局配置。配置了2个账号，提交时会有冲突，必须删除默认的，为每个项目配置不同的
+    git config --global --unset user.name
+    git config --global --unset user.email
+
+8. 为每个项目添加自己的账号和邮箱
+    cd d:\github-163
+    git config user.name "wuhf"
+    git config user.email "whf81248@163.com"
+
+    cd d:\github-gmail
+    git config user.name "wu-ben"
+    git config user.email "whf82828@gamil.com"
+
+7. Clone 到本地
+    git clone git@github.com:wu-ben/learngit.git  // 未配置config时
+    git clone git@github:wu-ben/learngit.git  // 配置了config，用config里的Host配置项
+-------------------------------------------------
+
+一、一个目录同时关联2个远程仓库，只能用相同的ssh，因为一个目录只能用一个user.anme和user.email
+1. 把目录变成git仓库
+    git init
+
+2. 把163的ssh复制到github和gitee网站上
+
+3. 在github 和 gitee上分别建立远程仓库 mutiple-git-repository
+
+4. 关联github，远程仓库起名叫mutihub
+    配置过config文件，不用写域名(github.com)了，写config文件里配置的Host (github)就行了
+    git remote add mutihub git@github:wu-ben/mutiple-git-repository.git
+
+5. 关联gitee,远程仓库名起名叫mutiee
+    git remote add mutiee git@gitee.com:whf20g/mutiple-git-repository
+
+6. 查看远程仓库
+    git remote -v
+
+7. 推送到远程
+    git push mutihub master // 推送到github
+    git push mutiee master // 推送到gitee
+
+8. 远程建了目录，本地也建了目录，已经建立了映射，但是推送报错
+   Updates were rejected because the remote contains work that you do
+   not have locally. This is usually caused by another repository pushing
+   to the same ref. You may want to first integrate the remote changes
+   (e.g., 'git pull ...') before pushing again.
+   See the 'Note about fast-forwards' in 'git push --help' for details.
+
+   (1) 需要先pull
+    git pull mutiee master
+   报错 fatal: refusing to merge unrelated histories 本地和远程历史不相同
+
+   (2) 强制合并历史 加上--allow-unrelated-history 合并两个独立启动仓库的历史
+    git pull mutiee master:master --allow-unrelated-histories // :前后相同可省略一个
+
+   (3) git status 查看文件状态，有需要合并的文件，需要合并一下再提交
+    Unmerged paths
+        both added: README.md
+
+   (4) 将本地更改提交
+    git add filename
+    git commit -m "xxx"
+
+
+
+---------------------------------------------
+
+五、
+1. 用本地github_gmail账户关联github远程mutiple-git-repository仓库，远程仓库重命名为mutihub
+    git remote add mutihub git@github_gmail:wu-ben/mutiple-git-repository.git
+
+2. 推送到远程
+    git push -u mutihub master  // 第一次推送加上-u，之后就不用了
+    git push --set-upstream mutihub master  // -u 的完整写法
+
+git@github.com:wu-ben/mutiple-git-repository.git
+
+Updates were rejected because the remote contains work that you do
+not have locally. This is usually caused by another repository pushing
+to the same ref. You may want to first integrate the remote changes
+(e.g., 'git pull ...') before pushing again.
+See the 'Note about fast-forwards' in 'git push --help' for details.
+
+
+
+$ git fetch <远程主机名> <远程分支名>:<本地分支名>
+$ git pull <远程主机名> <远程分支名>:<本地分支名>
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略：
+
+1. git fetch origin 远程分支mast:本地分支test // 拉取远程分支mast，并创建本地分支test，不切换分支
+    本地新建分支，但是不会切换到该本地分支，不会和远程分支建立映射关系。需要手动checkout切换分支。
+
+2. git checkout -b 本地分支test origin/远程分支mast  //拉取远程分支mast，并创建本地分支test，本地切换到test分支
+    创建的本地分支会与远程分支建立映射关系
+
+3. git branch -vv // 查看本地分支与远程分支的关系
+    最近一条有蓝色字表示关联上了
+
+4. git branch -u origin/远程分支 // 将当前分支映射到远程的指定分支
+
+5. 本地和远程都建立了文件夹和内容，可以关联上，但推送时报错
+    fatal: refusing to merge unrelated histories
+    拒绝合并不相关的历史
+    解决: 加上--allow-unrelated-history 合并两个独立启动仓库的历史
+    git pull origin master:master --allow-unrelated-histories // :前后相同可省略一个
